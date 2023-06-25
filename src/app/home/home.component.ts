@@ -29,12 +29,17 @@ export class HomeComponent implements OnInit {
 
   initPdfs() {
     const obj = this.common.getBrandingJSON('branding.json', branding);
+
     if (AppConfig.environment === 'PROD') {
       this.noOfPdfsToShow = obj;
     } else {
       this.noOfPdfsToShow = obj.default.numberOfPdfsToShow;
       console.log(this.noOfPdfsToShow);
     }
+
+    const pdfFromDir = this.common.getPdfsFromDir(this.noOfPdfsToShow);
+    console.log(pdfFromDir);
+    this.pdfs = pdfFromDir;
 
     this.cd.markForCheck();
 

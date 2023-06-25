@@ -1,3 +1,52 @@
-:host {
-  
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+.pdf-grid {
+    background-color: black;
+    display: grid;
+    flex-wrap: wrap;
+    grid-template-columns: auto auto;
+    width: 100vw;
+    padding: 67px 28px;
+    height: 100vh;
+    gap: 20px;
+    overflow: auto;
+    align-content: start;
+}
+
+.pdf-item {
+    flex: 0 1 50%;
+    padding: 1vw;
+    aspect-ratio: 7/8
+}
+
+.pdf-Viewer {
+    width: 100%;
+    height: 100%;
+}
+
+::ng-deep .ng2-pdf-viewer-container {
+    overflow: hidden;
+    display: flex;
+
+    .pdfViewer {
+        margin: auto;
+    }
+}
+
+.pdf-grid-mat {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+}
+
+::ng-deep .mat-grid-list {
+    .mat-grid-tile {
+        .mat-grid-tile-content {
+            inset: 10px 5px;
+        }
+    }
 }
