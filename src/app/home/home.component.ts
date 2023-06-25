@@ -16,6 +16,7 @@ import { AppConfig } from '../../environments/environment';
 export class HomeComponent implements OnInit {
   public pdfs: any;
   public noOfPdfsToShow: any;
+  public columns = '2';
 
   constructor(
     private router: Router,
@@ -23,6 +24,7 @@ export class HomeComponent implements OnInit {
     private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    console.log('JAI SHREE RAM!!!');
     console.log('HomeComponent INIT');
     this.initPdfs();
   }
@@ -37,12 +39,27 @@ export class HomeComponent implements OnInit {
       console.log(this.noOfPdfsToShow);
     }
 
+    switch (this.noOfPdfsToShow) {
+      case 1:
+        this.columns = '1';
+        break;
+      case 7:
+      case 8:
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+        this.columns = '3';
+        break;
+      default:
+        break;
+    }
+
     const pdfFromDir = this.common.getPdfsFromDir(this.noOfPdfsToShow);
     console.log(pdfFromDir);
     this.pdfs = pdfFromDir;
 
     this.cd.markForCheck();
-
   }
 
 }
