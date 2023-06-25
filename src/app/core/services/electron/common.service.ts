@@ -5,7 +5,6 @@
 import { Injectable } from '@angular/core';
 import { ElectronService } from './electron.service';
 import { AppConfig } from '../../../../environments/environment';
-// import { PdfReader } from "pdfreader";
 
 @Injectable({
   providedIn: 'root'
@@ -20,13 +19,11 @@ export class CommonService {
     let brandingJson;
     if (AppConfig.environment === 'PROD') {
       const appDataPath = this.electronService.app.getAppPath('appData');
-      // console.log('appDataPath =>', appDataPath);
+
       const jsonPath = this.getConfigPath(`${appDataPath}/config/`, fileName);
-      // console.log('jsonPath =>', jsonPath);
       const brandingJsonFile = this.electronService.fs.readFileSync(jsonPath, 'utf8');
-      // console.log('brandingJsonFile =>', brandingJsonFile);
       const parsedJson = JSON.parse(brandingJsonFile);
-      // console.log('parsedJson =>', parsedJson);
+
       brandingJson = parsedJson.numberOfPdfsToShow;
     } else {
       brandingJson = filePath;
@@ -34,20 +31,19 @@ export class CommonService {
     return brandingJson;
   }
 
-  getPdfsFromFeeds(fileName: string) {
-    const appDataPath = this.electronService.app.getAppPath('appData');
-    const jsonPath = this.getConfigPath(`${appDataPath}/config/Feeds/pdfs/`, fileName);
-    return jsonPath;
-  }
-
-
-
   getPdfsFromDir(noOfPdfsToShow: any) {
     const result: { url: string }[] = [];
 
     if (AppConfig.environment === 'PROD') {
-      const pdfUrls = this.getPdfsFromFeeds('noticeboard1.pdf');
-      result.push({ url: pdfUrls });
+      const appDataPath = this.electronService.app.getAppPath('appData');
+
+      const dirPath = this.getConfigPath(`${appDataPath}`, `/config/Feeds/pdfs/`);
+      const files = this.electronService.fs.readdirSync(dirPath); // To Read all files in the directory
+
+      for (let i = 0; i < noOfPdfsToShow && i < files.length; i++) {
+        const pdfUrl = `${dirPath}${files[i]}`;
+        result.push({ url: pdfUrl });
+      }
 
     } else {
       const dirPath = '../../../../assets/config/Feeds/pdfs/';
