@@ -2,8 +2,10 @@
 <h2>{{noOfPdfsToShow}}</h2>
 <div class="container">
   <div class="pdf-grid-mat">
-    <!-- <pdf-viewer [src]="pdf.url" [rotation]="0" [original-size]="false" [autoresize]="true" [show-all]="false"
-      [fit-to-page]="true" [zoom-scale]="'page-width'" [render-text]="true" [external-link-target]="'blank'"
-      style="height: 800px; width: 400px;" [show-borders]="false"></pdf-viewer> -->
+    <div *ngFor="let pdf of pdfs">
+      <pdf-viewer [src]="pdf.url" [rotation]="0" [original-size]="false" [autoresize]="true" [show-all]="false"
+        [fit-to-page]="true" [zoom-scale]="'page-width'" [render-text]="true" [external-link-target]="'blank'"
+        style="height: 800px; width: 400px;" [show-borders]="false"></pdf-viewer>
+    </div>
   </div>
 </div>
